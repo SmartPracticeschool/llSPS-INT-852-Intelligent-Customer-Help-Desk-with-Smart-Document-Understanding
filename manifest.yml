@@ -1,0 +1,15 @@
+---
+applications:
+- instances: 1
+  timeout: 180
+  name: noderedkymwe
+  buildpack: sdk-for-nodejs
+  command: npm start
+  disk_quota: 1G
+  memory: 256MB
+  domain: mybluemix.net
+  host: node-red-kymwe
+  services:
+    - node-red-kymwe-cloudant-1588944530801-19235
+  env:
+    OPTIMIZE_MEMORY: true
