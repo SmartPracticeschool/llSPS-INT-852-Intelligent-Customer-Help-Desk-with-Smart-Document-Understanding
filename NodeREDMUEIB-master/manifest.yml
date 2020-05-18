@@ -1,0 +1,15 @@
+---
+applications:
+- instances: 1
+  timeout: 180
+  name: noderedmueib
+  buildpack: sdk-for-nodejs
+  command: npm start
+  disk_quota: 1G
+  memory: 256MB
+  domain: eu-gb.mybluemix.net
+  host: node-red-mueib
+  services:
+    - node-red-mueib-cloudant-1589705242904-53068
+  env:
+    OPTIMIZE_MEMORY: true

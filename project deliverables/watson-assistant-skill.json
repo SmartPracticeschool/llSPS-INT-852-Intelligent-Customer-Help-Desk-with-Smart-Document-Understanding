@@ -1,0 +1,431 @@
+{
+  "intents": [
+    {
+      "intent": "Product-Information",
+      "examples": [
+        {
+          "text": "how to take a photo"
+        },
+        {
+          "text": "how to browse the web"
+        },
+        {
+          "text": "how to play a song"
+        },
+        {
+          "text": "how to send a message"
+        },
+        {
+          "text": "how to listen to radio"
+        },
+        {
+          "text": "how to make or answer a call"
+        },
+        {
+          "text": "how to charge the battery"
+        },
+        {
+          "text": "how to copy content from your old phone"
+        },
+        {
+          "text": "how to change the volume"
+        },
+        {
+          "text": "how to call the last dialed number"
+        },
+        {
+          "text": "how to save name and phone number"
+        },
+        {
+          "text": "how to write text"
+        },
+        {
+          "text": "how to set an alarm"
+        },
+        {
+          "text": "how to send a mail"
+        },
+        {
+          "text": "how to view your missed calls"
+        },
+        {
+          "text": "how to change the ringtone"
+        },
+        {
+          "text": "how to insert a sim card"
+        },
+        {
+          "text": "how to remove the battery"
+        },
+        {
+          "text": "how to insert a battery"
+        },
+        {
+          "text": "how to chat with your friends"
+        },
+        {
+          "text": "how to insert a memory card"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Location",
+      "examples": [
+        {
+          "text": "what is the address of the store?"
+        },
+        {
+          "text": "Where are you located?"
+        },
+        {
+          "text": "Where is the store located?"
+        },
+        {
+          "text": "what is the location of the store?"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Thankyou",
+      "examples": [
+        {
+          "text": "gracias"
+        },
+        {
+          "text": "thank you"
+        },
+        {
+          "text": "thanks"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Greeting",
+      "examples": [
+        {
+          "text": "hello"
+        },
+        {
+          "text": "hola"
+        },
+        {
+          "text": "good afternoon"
+        },
+        {
+          "text": "good morning"
+        },
+        {
+          "text": "hi"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "intent": "Hours",
+      "examples": [
+        {
+          "text": "what are the store hours?"
+        },
+        {
+          "text": "what are the store working hours?"
+        },
+        {
+          "text": "What time does the store open?"
+        },
+        {
+          "text": "what hours is the store open?"
+        },
+        {
+          "text": "What are your hours?"
+        }
+      ],
+      "description": ""
+    }
+  ],
+  "entities": [
+    {
+      "entity": "store",
+      "values": [
+        {
+          "type": "synonyms",
+          "value": "store",
+          "synonyms": [
+            "company",
+            "office",
+            "service center",
+            "gallery"
+          ]
+        }
+      ],
+      "fuzzy_match": true
+    }
+  ],
+  "metadata": {
+    "api_version": {
+      "major_version": "v2",
+      "minor_version": "2018-11-08"
+    }
+  },
+  "webhooks": [
+    {
+      "url": "https://eu-gb.functions.cloud.ibm.com/api/v1/web/joysongaurea%40gmail.com_dev/Default%20Package/discovery-1.json",
+      "name": "main_webhook",
+      "headers": []
+    }
+  ],
+  "dialog_nodes": [
+    {
+      "type": "response_condition",
+      "output": {
+        "text": {
+          "values": [
+            "Try again later"
+          ],
+          "selection_policy": "sequential"
+        }
+      },
+      "parent": "node_6_1589718015740",
+      "conditions": "anything_else",
+      "dialog_node": "response_2_1589718064151",
+      "previous_sibling": "response_3_1589718060314"
+    },
+    {
+      "type": "response_condition",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "$webhook_result_1"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "sequential"
+          }
+        ]
+      },
+      "parent": "node_6_1589718015740",
+      "conditions": "$webhook_result_1",
+      "dialog_node": "response_3_1589718060314"
+    },
+    {
+      "type": "standard",
+      "title": "Location",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "The store is located at 231 A Carrington Street, NYC."
+              },
+              {
+                "text": "You can find us at 231 A Carrington Street, NYC."
+              },
+              {
+                "text": "You can pay us a visit at 231 A Carrington Street, NYC."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          }
+        ]
+      },
+      "parent": "node_2_1589722818598",
+      "conditions": "#Location",
+      "dialog_node": "node_8_1589723334171",
+      "previous_sibling": "node_7_1589723130320"
+    },
+    {
+      "type": "standard",
+      "title": "Hours",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "The store is open from Monday to Saturday, 10am to 8pm."
+              },
+              {
+                "text": "Our working hours are 10 to 8, every Monday to Saturday."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          }
+        ]
+      },
+      "parent": "node_2_1589722818598",
+      "conditions": "#Hours",
+      "dialog_node": "node_7_1589723130320"
+    },
+    {
+      "type": "standard",
+      "title": "Thank you",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Anytime!"
+              },
+              {
+                "text": "You're very welcome."
+              },
+              {
+                "text": "Glad to be of assistance."
+              },
+              {
+                "text": "It's my pleasure."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          }
+        ]
+      },
+      "conditions": "#Thankyou",
+      "dialog_node": "node_1_1589720881331",
+      "previous_sibling": "node_10_1589720688514"
+    },
+    {
+      "type": "standard",
+      "title": "Store",
+      "output": {
+        "generic": []
+      },
+      "next_step": {
+        "behavior": "jump_to",
+        "selector": "condition",
+        "dialog_node": "node_7_1589723130320"
+      },
+      "conditions": "@store",
+      "dialog_node": "node_2_1589722818598",
+      "previous_sibling": "node_6_1589718015740"
+    },
+    {
+      "type": "standard",
+      "title": "Anything else",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "I didn't understand. You can try rephrasing."
+              },
+              {
+                "text": "Can you reword your statement? I'm not understanding."
+              },
+              {
+                "text": "I didn't get your meaning."
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          }
+        ]
+      },
+      "conditions": "anything_else",
+      "dialog_node": "Anything else",
+      "previous_sibling": "node_1_1589720881331",
+      "disambiguation_opt_out": true
+    },
+    {
+      "type": "standard",
+      "title": "Greeting",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Hi there. I am here to help. How can I help?"
+              },
+              {
+                "text": "Hello. How can I be of assistance?"
+              },
+              {
+                "text": "Hi, what can I do for you?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          }
+        ]
+      },
+      "conditions": "#Greeting",
+      "dialog_node": "node_10_1589720688514",
+      "previous_sibling": "node_2_1589722818598"
+    },
+    {
+      "type": "standard",
+      "title": "Ask about product",
+      "actions": [
+        {
+          "name": "main_webhook",
+          "type": "webhook",
+          "parameters": {
+            "input": "<?input.text?>"
+          },
+          "result_variable": "$webhook_result_1"
+        }
+      ],
+      "metadata": {
+        "_customization": {
+          "mcr": true
+        }
+      },
+      "conditions": "#Product-Information",
+      "dialog_node": "node_6_1589718015740",
+      "previous_sibling": "Welcome"
+    },
+    {
+      "type": "standard",
+      "title": "Welcome",
+      "output": {
+        "generic": [
+          {
+            "values": [
+              {
+                "text": "Welcome to Nokia 111 support team chatbot. How can I be of assistance?"
+              },
+              {
+                "text": "Hi, this is the Nokia 111 support team chatbot, how can I help?"
+              }
+            ],
+            "response_type": "text",
+            "selection_policy": "random"
+          }
+        ]
+      },
+      "conditions": "welcome",
+      "dialog_node": "Welcome"
+    }
+  ],
+  "counterexamples": [],
+  "system_settings": {
+    "off_topic": {
+      "enabled": true
+    },
+    "disambiguation": {
+      "prompt": "Did you mean:",
+      "enabled": true,
+      "randomize": true,
+      "max_suggestions": 5,
+      "suggestion_text_policy": "title",
+      "none_of_the_above_prompt": "None of the above"
+    },
+    "system_entities": {
+      "enabled": true
+    },
+    "human_agent_assist": {
+      "prompt": "Did you mean:"
+    },
+    "spelling_auto_correct": true
+  },
+  "learning_opt_out": false,
+  "name": "My first skill",
+  "language": "en",
+  "description": ""
+}

@@ -1,0 +1,175 @@
+[
+    {
+        "id": "a894d589.079ed8",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "a05c01d.ab441",
+        "type": "ui_form",
+        "z": "a894d589.079ed8",
+        "name": "form",
+        "label": "",
+        "group": "84efbdf1.fcaa2",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "Enter a query",
+                "value": "query",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "query": ""
+        },
+        "payload": "",
+        "submit": "submit",
+        "cancel": "cancel",
+        "topic": "",
+        "x": 120,
+        "y": 370,
+        "wires": [
+            [
+                "a3211f98.cdb8c"
+            ]
+        ]
+    },
+    {
+        "id": "a3211f98.cdb8c",
+        "type": "function",
+        "z": "a894d589.079ed8",
+        "name": "function",
+        "func": "msg.payload = msg.payload.query;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 285,
+        "y": 275,
+        "wires": [
+            [
+                "162d311d.e82e6f",
+                "455a7552.6d669c"
+            ]
+        ]
+    },
+    {
+        "id": "455a7552.6d669c",
+        "type": "watson-conversation-v1",
+        "z": "a894d589.079ed8",
+        "name": "Assistant",
+        "workspaceid": "9e3b568e-b59a-4508-b81d-4ed7273f0407",
+        "multiuser": false,
+        "context": false,
+        "empty-payload": false,
+        "service-endpoint": "",
+        "timeout": "",
+        "optout-learning": false,
+        "x": 470,
+        "y": 180,
+        "wires": [
+            [
+                "5a78a9a3.f9a118",
+                "48eeafb6.5e146"
+            ]
+        ]
+    },
+    {
+        "id": "48eeafb6.5e146",
+        "type": "function",
+        "z": "a894d589.079ed8",
+        "name": "function",
+        "func": "msg.payload.text=\"\";\nif(msg.payload.context.webhook_result_1) {\n    for(var i in msg.payload.context.webhook_result_1.results) {\n        msg.payload.text=msg.payload.text+\"\\n\"+msg.payload.context.webhook_result_1.results[i].text;\n    }\n    msg.payload=msg.payload.text;\n}\nelse msg.payload = msg.payload.output.text[0];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 625,
+        "y": 270,
+        "wires": [
+            [
+                "7177a04a.f32f9"
+            ]
+        ]
+    },
+    {
+        "id": "7177a04a.f32f9",
+        "type": "ui_text",
+        "z": "a894d589.079ed8",
+        "group": "40774cf4.6ec124",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "name": "assistant reply",
+        "label": "Assistant",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 760,
+        "y": 390,
+        "wires": []
+    },
+    {
+        "id": "5a78a9a3.f9a118",
+        "type": "debug",
+        "z": "a894d589.079ed8",
+        "name": "msg.payload",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 695,
+        "y": 115,
+        "wires": []
+    },
+    {
+        "id": "162d311d.e82e6f",
+        "type": "ui_text",
+        "z": "a894d589.079ed8",
+        "group": "84efbdf1.fcaa2",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "name": "display query",
+        "label": "You",
+        "format": "{{msg.payload}}",
+        "layout": "col-center",
+        "x": 470,
+        "y": 395,
+        "wires": []
+    },
+    {
+        "id": "84efbdf1.fcaa2",
+        "type": "ui_group",
+        "z": "",
+        "name": "Ask anything",
+        "tab": "541816f8.a44468",
+        "order": 1,
+        "disp": true,
+        "width": "12",
+        "collapse": false
+    },
+    {
+        "id": "40774cf4.6ec124",
+        "type": "ui_group",
+        "z": "",
+        "name": "Assistant",
+        "tab": "541816f8.a44468",
+        "order": 3,
+        "disp": false,
+        "width": "12",
+        "collapse": false
+    },
+    {
+        "id": "541816f8.a44468",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Nokia 111 Cell Phone Customer Care",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
